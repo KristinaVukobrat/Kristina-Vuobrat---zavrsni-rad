@@ -151,9 +151,27 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{baseUrl}}/galleries?page=1&term=",
 					"host": [
@@ -183,15 +201,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
 							"});",
 							"",
-							"pm.test(\"Get gallery ID\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    var galleryID = jsonData.id;",
-							"    pm.environment.set('lastCreatedGalleryID', galleryID);",
-							"});",
 							""
 						],
 						"type": "text/javascript"
@@ -214,7 +227,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"test\",\n    \"description\": \"\",\n    \"images\": [\n        \"https://i.pinimg.com/originals/8e/29/38/8e293890e9aee4ecc996aab265280c0b.jpg\"\n    ]\n}",
+					"raw": "{\n    \"title\": \"test\",\n    \"description\": \"\",\n    \"images\": [\n        \n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -274,6 +287,24 @@
 					"raw": "{{baseUrl}}galleries",
 					"host": [
 						"{{baseUrl}}galleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete gallery",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/galleries/329",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"galleries",
+						"329"
 					]
 				}
 			},
